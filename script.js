@@ -6,7 +6,9 @@ let scrollLeft;
 slider.addEventListener('mousedown', (e) => {
   isDown = true;
   slider.classList.add('active');
+  // Store the initial click X position
   startX = e.pageX - slider.offsetLeft;
+  // Store the current scroll position
   scrollLeft = slider.scrollLeft;
 });
 
@@ -21,9 +23,9 @@ slider.addEventListener('mouseup', () => {
 });
 
 slider.addEventListener('mousemove', (e) => {
-  if (!isDown) return; // stop function if not holding mouse
+  if (!isDown) return; // Only drag when mouse is held down
   e.preventDefault();
   const x = e.pageX - slider.offsetLeft;
-  const walk = (x - startX) * 1; // scroll speed
+  const walk = (x - startX) * 2; // Multiplier = scroll speed
   slider.scrollLeft = scrollLeft - walk;
 });

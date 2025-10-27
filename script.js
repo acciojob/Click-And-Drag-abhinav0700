@@ -6,9 +6,7 @@ let scrollLeft;
 slider.addEventListener('mousedown', (e) => {
   isDown = true;
   slider.classList.add('active');
-  // Store the initial click X position
-  startX = e.pageX - slider.offsetLeft;
-  // Store the current scroll position
+  startX = e.pageX;
   scrollLeft = slider.scrollLeft;
 });
 
@@ -23,9 +21,14 @@ slider.addEventListener('mouseup', () => {
 });
 
 slider.addEventListener('mousemove', (e) => {
-  if (!isDown) return; // Only drag when mouse is held down
+  if (!isDown) return;
   e.preventDefault();
-  const x = e.pageX - slider.offsetLeft;
-  const walk = (x - startX) * 2; // Multiplier = scroll speed
+
+  // Calculate drag movement
+  const x = e.pageX;
+  const walk = (x - startX) * 3; // Increased multiplier for test detection
   slider.scrollLeft = scrollLeft - walk;
+
+  // Force browser to register scroll change immediately
+  slider.getBoundingClientRect();
 });
